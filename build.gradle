@@ -1,0 +1,36 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+defaultTasks 'run'
+mainClassName = 'Principal'
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile group: 'org.jsoup', name: 'jsoup', version: '1.13.1'
+    compile 'com.google.guava:guava:23.0'
+    compile "com.sparkjava:spark-core:2.9.2" // add to build.gradle (for Java users)
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.11.2'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.11.2'
+
+}
+
+// Create a fat executable jar
+jar {
+    manifest {
+        attributes "Main-Class": "$mainClassName"
+    }
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+
+    archiveName "app.jar"
+}
