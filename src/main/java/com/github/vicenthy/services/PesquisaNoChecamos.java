@@ -28,18 +28,15 @@ public class PesquisaNoChecamos implements IChecamos{
                 String img = "https://checamos.afp.com" + result.select("img").stream().findFirst().get().attr("src");
                 String titulo = result.getElementsByClass("card-title").stream().findFirst().get().text();
                 String link = "https://checamos.afp.com" + result.select("a[href]").stream().findFirst().get().attr("href");
-
                 artigoDTO.setUrlImg(img);
                 artigoDTO.setTitulo(titulo);
                 artigoDTO.setUrlDetalhes(link);
-
                 resultados.add(artigoDTO);
-
             });
             return resultados;
         }catch (Exception e){
             e.printStackTrace();
-            return null;
+            return List.of();
         }
     }
 }

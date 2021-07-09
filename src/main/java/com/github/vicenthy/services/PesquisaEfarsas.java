@@ -39,7 +39,7 @@ public class PesquisaEfarsas implements IEfarsas{
             return resultados;
         }catch (Exception e){
             e.printStackTrace();
-            return null;
+            return List.of();
         }
     }
 
