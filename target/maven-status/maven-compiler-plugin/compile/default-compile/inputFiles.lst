@@ -1,0 +1,12 @@
+/home/atila/Documentos/projetos/api-fake-news-web-scraping/src/main/java/com/github/vicenthy/dto/ArtigoDTO.java
+/home/atila/Documentos/projetos/api-fake-news-web-scraping/src/main/java/com/github/vicenthy/services/intefaces/IEfarsas.java
+/home/atila/Documentos/projetos/api-fake-news-web-scraping/src/main/java/com/github/vicenthy/services/PesquisaBoatosPontoOrg.java
+/home/atila/Documentos/projetos/api-fake-news-web-scraping/src/main/java/com/github/vicenthy/services/intefaces/IPesquisa.java
+/home/atila/Documentos/projetos/api-fake-news-web-scraping/src/main/java/com/github/vicenthy/resource/PesquisaResource.java
+/home/atila/Documentos/projetos/api-fake-news-web-scraping/src/main/java/com/github/vicenthy/exception/ResponseError.java
+/home/atila/Documentos/projetos/api-fake-news-web-scraping/src/main/java/com/github/vicenthy/services/intefaces/IChecamos.java
+/home/atila/Documentos/projetos/api-fake-news-web-scraping/src/main/java/com/github/vicenthy/services/PesquisaEfarsas.java
+/home/atila/Documentos/projetos/api-fake-news-web-scraping/src/main/java/com/github/vicenthy/services/PesquisaNoChecamos.java
+/home/atila/Documentos/projetos/api-fake-news-web-scraping/src/main/java/com/github/vicenthy/exception/FakeNewApiExcetionHandler.java
+/home/atila/Documentos/projetos/api-fake-news-web-scraping/src/main/java/com/github/vicenthy/exception/FakeNewApiExcetion.java
+/home/atila/Documentos/projetos/api-fake-news-web-scraping/src/main/java/com/github/vicenthy/services/intefaces/IBoatos.java
