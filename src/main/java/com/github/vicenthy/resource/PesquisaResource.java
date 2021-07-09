@@ -15,6 +15,7 @@ import com.github.vicenthy.services.intefaces.IEfarsas;
 
 import io.quarkus.vertx.web.Route;
 import io.quarkus.vertx.web.Route.HttpMethod;
+import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import io.vertx.ext.web.RoutingContext;
 
@@ -34,24 +35,24 @@ public class PesquisaResource {
 
     
     @Route(methods = HttpMethod.GET, path = "/checamos/:busca", produces = MediaType.APPLICATION_JSON)
-    public Uni<List<ArtigoDTO>> checamos(RoutingContext rc) {
-        return Uni
+    public Multi<List<ArtigoDTO>> checamos(RoutingContext rc) {
+        return Multi
         .createFrom()
         .item(checamos.verificarFakeNews(rc.pathParam("busca")));
         
     }
 
     @Route(methods = HttpMethod.GET, path = "/efarsas/:busca", produces = MediaType.APPLICATION_JSON)
-    public Uni<List<ArtigoDTO>> efarsas(RoutingContext rc) {
-        return Uni
+    public Multi<List<ArtigoDTO>> efarsas(RoutingContext rc) {
+        return Multi
         .createFrom()
         .item(efarsas.verificarFakeNews(rc.pathParam("busca")));  
     }
 
 
     @Route(methods = HttpMethod.GET, path = "/boatos/:busca", produces = MediaType.APPLICATION_JSON)
-    public Uni<List<ArtigoDTO>> boatos(RoutingContext rc) {
-        return Uni
+    public Multi<List<ArtigoDTO>> boatos(RoutingContext rc) {
+        return Multi
         .createFrom()
         .item(boatos.verificarFakeNews(rc.pathParam("busca")));   
     }
