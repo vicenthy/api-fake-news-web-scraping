@@ -15,6 +15,7 @@ import com.github.vicenthy.services.intefaces.IEfarsas;
 
 import io.quarkus.vertx.web.Route;
 import io.quarkus.vertx.web.Route.HttpMethod;
+import io.smallrye.common.annotation.Blocking;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import io.vertx.ext.web.RoutingContext;
@@ -35,6 +36,7 @@ public class PesquisaResource {
 
     
     @Route(methods = HttpMethod.GET, path = "/checamos/:busca", produces = MediaType.APPLICATION_JSON)
+    @Blocking
     public Multi<List<ArtigoDTO>> checamos(RoutingContext rc) {
         return Multi
         .createFrom()
@@ -43,6 +45,7 @@ public class PesquisaResource {
     }
 
     @Route(methods = HttpMethod.GET, path = "/efarsas/:busca", produces = MediaType.APPLICATION_JSON)
+    @Blocking
     public Multi<List<ArtigoDTO>> efarsas(RoutingContext rc) {
         return Multi
         .createFrom()
@@ -51,6 +54,7 @@ public class PesquisaResource {
 
 
     @Route(methods = HttpMethod.GET, path = "/boatos/:busca", produces = MediaType.APPLICATION_JSON)
+    @Blocking
     public Multi<List<ArtigoDTO>> boatos(RoutingContext rc) {
         return Multi
         .createFrom()
