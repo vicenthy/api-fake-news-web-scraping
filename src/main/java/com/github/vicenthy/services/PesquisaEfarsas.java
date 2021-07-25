@@ -5,6 +5,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import io.smallrye.mutiny.Multi;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,12 +26,12 @@ public class PesquisaEfarsas implements IEfarsas{
 
             String urlbase = "https://www.e-farsas.com/";
             var doc = Jsoup.connect(urlbase +"?s="+  parametro).get();
-            // Element first = doc.getElementsByClass("last").first();
-            // var totalPage = first != null ? Integer.parseInt(first.text()) : 0;
+             Element first = doc.getElementsByClass("last").first();
+             var totalPage = first != null ? Integer.parseInt(first.text()) : 0;
             List<ArtigoDTO> result = new ArrayList<>();
             result.addAll(getResult(doc));
            
-            /* if(totalPage > 1){
+             if(totalPage > 1){
                 int paginate = 1;
                 while(paginate <= totalPage){
                     var docPage = Jsoup.connect(urlbase+"page/"+paginate+"?s="+ parametro).get();
@@ -37,8 +39,6 @@ public class PesquisaEfarsas implements IEfarsas{
                     paginate++;
                 }
             }
-            */
-            
             return result;
         }catch (Exception e){
             e.printStackTrace();
@@ -66,6 +66,11 @@ public class PesquisaEfarsas implements IEfarsas{
             return artigoDTO;
 
         }).collect(Collectors.toList());
+    }
+
+    @Override
+    public Multi<List<ArtigoDTO>> verificarFakeNewsAsync(String parametro) {
+        return Multi.createFrom().items(verificarFakeNews(parametro));
     }
 
 }

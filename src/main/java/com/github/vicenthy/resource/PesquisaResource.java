@@ -5,6 +5,7 @@ package com.github.vicenthy.resource;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.ws.rs.core.MediaType;
 
@@ -17,12 +18,12 @@ import io.quarkus.vertx.web.Route;
 import io.quarkus.vertx.web.Route.HttpMethod;
 import io.smallrye.common.annotation.Blocking;
 import io.smallrye.mutiny.Multi;
-import io.smallrye.mutiny.Uni;
 import io.vertx.ext.web.RoutingContext;
 
 
 
 @ApplicationScoped
+@javax.ws.rs.Produces(MediaType.SERVER_SENT_EVENTS)
 public class PesquisaResource {
 
 
@@ -47,9 +48,7 @@ public class PesquisaResource {
     @Route(methods = HttpMethod.GET, path = "/efarsas/:busca", produces = MediaType.APPLICATION_JSON)
     @Blocking
     public Multi<List<ArtigoDTO>> efarsas(RoutingContext rc) {
-        return Multi
-        .createFrom()
-        .item(efarsas.verificarFakeNews(rc.pathParam("busca")));  
+        return efarsas.verificarFakeNewsAsync(rc.pathParam("busca"));  
     }
 
 
