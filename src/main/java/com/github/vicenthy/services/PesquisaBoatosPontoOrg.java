@@ -6,6 +6,7 @@ import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
 
@@ -22,8 +23,7 @@ public class PesquisaBoatosPontoOrg implements IBoatos{
 
                 Document doc = Jsoup.connect("https://www.boatos.org/?s=" + parametro).get();
                 Elements postList = doc.getElementsByClass("featured-image");
-                List<ArtigoDTO> resultados = new ArrayList<>();
-                postList.stream().forEach(result -> {
+                return postList.stream().parallel().map(result -> {
                     ArtigoDTO artigoDTO = new ArtigoDTO();
                     String link = result.select("a[href]").stream().findFirst().get().attr("href");
                     String img = result.select("img").stream().findFirst().get().attr("src");
@@ -31,10 +31,8 @@ public class PesquisaBoatosPontoOrg implements IBoatos{
                     artigoDTO.setUrlImg(img);
                     artigoDTO.setTitulo(titulo);
                     artigoDTO.setUrlDetalhes(link);
-                    resultados.add(artigoDTO);
-
-                });
-                return resultados;
+                    return artigoDTO;
+                }).collect(Collectors.toList());
             }catch (Exception e){
                 e.printStackTrace();
                 return List.of();

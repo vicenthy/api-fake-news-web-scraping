@@ -6,6 +6,7 @@ import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
 
@@ -22,8 +23,7 @@ public class PesquisaNoChecamos implements IChecamos{
         try {
             Document doc = Jsoup.connect("https://checamos.afp.com/fact-checking-search-results?keywords=" + parametro).get();
             Elements postList = doc.getElementsByClass("card");
-            List<ArtigoDTO> resultados = new ArrayList<>();
-            postList.stream().forEach(result -> {
+            return postList.stream().map(result -> {
                 ArtigoDTO artigoDTO = new ArtigoDTO();
                 String img = "https://checamos.afp.com" + result.select("img").stream().findFirst().get().attr("src");
                 String titulo = result.getElementsByClass("card-title").stream().findFirst().get().text();
@@ -31,9 +31,8 @@ public class PesquisaNoChecamos implements IChecamos{
                 artigoDTO.setUrlImg(img);
                 artigoDTO.setTitulo(titulo);
                 artigoDTO.setUrlDetalhes(link);
-                resultados.add(artigoDTO);
-            });
-            return resultados;
+            return artigoDTO;
+            }).collect(Collectors.toList());
         }catch (Exception e){
             e.printStackTrace();
             return List.of();
