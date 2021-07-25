@@ -26,13 +26,11 @@ public class PesquisaBoatosPontoOrg implements IBoatos{
                 postList.stream().forEach(result -> {
                     ArtigoDTO artigoDTO = new ArtigoDTO();
                     String link = result.select("a[href]").stream().findFirst().get().attr("href");
-                    String img = result.select("img").stream().findFirst().get().attr("src").split("\\?")[0];
+                    String img = result.select("img").stream().findFirst().get().attr("src");
                     String titulo = result.select("a[href]").stream().findFirst().get().attr("title");
-
                     artigoDTO.setUrlImg(img);
                     artigoDTO.setTitulo(titulo);
                     artigoDTO.setUrlDetalhes(link);
-
                     resultados.add(artigoDTO);
 
                 });
