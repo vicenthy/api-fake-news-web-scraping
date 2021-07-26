@@ -26,19 +26,21 @@ public class PesquisaEfarsas implements IEfarsas{
 
             String urlbase = "https://www.e-farsas.com/";
             var doc = Jsoup.connect(urlbase +"?s="+  parametro).get();
-             Element first = doc.getElementsByClass("last").first();
-             var totalPage = first != null ? Integer.parseInt(first.text()) : 0;
+           //  Element first = doc.getElementsByClass("last").first();
+           //  var totalPage = first != null ? Integer.parseInt(first.text()) : 0;
             List<ArtigoDTO> result = new ArrayList<>();
             result.addAll(getResult(doc));
-           
+           /*
              if(totalPage > 1){
                 int paginate = 1;
                 while(paginate <= totalPage){
-                    var docPage = Jsoup.connect(urlbase+"page/"+paginate+"?s="+ parametro).get();
+                    var docPage =  Jsoup.connect(urlbase+"page/"+paginate+"?s="+ parametro).get();
                     result.addAll(getResult(docPage));
                     paginate++;
                 }
+                
             }
+            */
             return result;
         }catch (Exception e){
             e.printStackTrace();
