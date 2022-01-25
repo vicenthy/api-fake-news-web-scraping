@@ -7,6 +7,7 @@ import javax.enterprise.context.ApplicationScoped;
 
 import com.github.vicenthy.dto.ArtigoDTO;
 import com.github.vicenthy.services.intefaces.IAosFatos;
+import io.quarkus.cache.CacheResult;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -17,6 +18,7 @@ public class PesquisaAosFatos implements IAosFatos{
 
 
     @Override
+    @CacheResult(cacheName = "aosfatos") 
     public List<ArtigoDTO> verificarFakeNews(String parametro){
         try {
 

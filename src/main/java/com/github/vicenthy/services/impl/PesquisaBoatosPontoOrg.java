@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 import javax.enterprise.context.ApplicationScoped;
 import com.github.vicenthy.dto.ArtigoDTO;
 import com.github.vicenthy.services.intefaces.IBoatos;
+import io.quarkus.cache.CacheResult;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -15,6 +16,7 @@ public class PesquisaBoatosPontoOrg implements IBoatos{
 
 
         @Override
+        @CacheResult(cacheName = "boatos-org") 
         public List<ArtigoDTO> verificarFakeNews(String parametro){
             try {
 

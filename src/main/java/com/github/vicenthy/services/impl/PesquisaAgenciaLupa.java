@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
+import io.quarkus.cache.CacheResult;
+
 
 import com.github.vicenthy.dto.ArtigoDTO;
 import com.github.vicenthy.services.intefaces.IAgenciaLupa;
@@ -18,6 +20,7 @@ public class PesquisaAgenciaLupa implements IAgenciaLupa{
 
 
     @Override
+    @CacheResult(cacheName = "pesquisa-agencia-lupa") 
     public List<ArtigoDTO> verificarFakeNews(String parametro){
         try {
 

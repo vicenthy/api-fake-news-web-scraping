@@ -7,6 +7,7 @@ import javax.enterprise.context.ApplicationScoped;
 
 import com.github.vicenthy.dto.ArtigoDTO;
 import com.github.vicenthy.services.intefaces.IChecamos;
+import io.quarkus.cache.CacheResult;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -17,6 +18,7 @@ public class PesquisaNoChecamos implements IChecamos{
 
 
     @Override
+    @CacheResult(cacheName = "checamos") 
     public List<ArtigoDTO> verificarFakeNews(String parametro){
         parametro = parametro.replaceAll("\\+", "%2B");
         try {

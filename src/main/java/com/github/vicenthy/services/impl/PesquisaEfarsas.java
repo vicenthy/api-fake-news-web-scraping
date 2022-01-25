@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import javax.enterprise.context.ApplicationScoped;
 import com.github.vicenthy.dto.ArtigoDTO;
 import com.github.vicenthy.services.intefaces.IEfarsas;
+import io.quarkus.cache.CacheResult;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -16,6 +17,7 @@ import io.smallrye.mutiny.Multi;
 public class PesquisaEfarsas implements IEfarsas{
 
     @Override
+    @CacheResult(cacheName = "e-farsas") 
     public List<ArtigoDTO> verificarFakeNews(String parametro){
         try {
 
