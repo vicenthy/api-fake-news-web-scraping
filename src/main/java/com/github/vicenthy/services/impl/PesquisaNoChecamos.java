@@ -1,10 +1,5 @@
-package com.github.vicenthy.services;
+package com.github.vicenthy.services.impl;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,6 +7,10 @@ import javax.enterprise.context.ApplicationScoped;
 
 import com.github.vicenthy.dto.ArtigoDTO;
 import com.github.vicenthy.services.intefaces.IChecamos;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
 @ApplicationScoped
 public class PesquisaNoChecamos implements IChecamos{

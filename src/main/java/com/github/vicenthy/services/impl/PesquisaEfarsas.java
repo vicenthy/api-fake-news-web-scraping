@@ -1,24 +1,19 @@
-package com.github.vicenthy.services;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
-import io.smallrye.mutiny.Multi;
+package com.github.vicenthy.services.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import javax.enterprise.context.ApplicationScoped;
-
 import com.github.vicenthy.dto.ArtigoDTO;
 import com.github.vicenthy.services.intefaces.IEfarsas;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
+import io.smallrye.mutiny.Multi;
+
 @ApplicationScoped
 public class PesquisaEfarsas implements IEfarsas{
-
 
     @Override
     public List<ArtigoDTO> verificarFakeNews(String parametro){
@@ -26,21 +21,8 @@ public class PesquisaEfarsas implements IEfarsas{
 
             String urlbase = "https://www.e-farsas.com/";
             var doc = Jsoup.connect(urlbase +"?s="+  parametro).get();
-           //  Element first = doc.getElementsByClass("last").first();
-           //  var totalPage = first != null ? Integer.parseInt(first.text()) : 0;
             List<ArtigoDTO> result = new ArrayList<>();
             result.addAll(getResult(doc));
-           /*
-             if(totalPage > 1){
-                int paginate = 1;
-                while(paginate <= totalPage){
-                    var docPage =  Jsoup.connect(urlbase+"page/"+paginate+"?s="+ parametro).get();
-                    result.addAll(getResult(docPage));
-                    paginate++;
-                }
-                
-            }
-            */
             return result;
         }catch (Exception e){
             e.printStackTrace();
@@ -55,8 +37,7 @@ public class PesquisaEfarsas implements IEfarsas{
             postList.remove(postList.last());
             skip++;
         }
-        
-
+ 
         return postList.stream().parallel().map(result -> {
             ArtigoDTO artigoDTO = new ArtigoDTO();
             String link = result.select("a[href]").stream().findFirst().get().attr("href");

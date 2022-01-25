@@ -1,4 +1,4 @@
-package com.github.vicenthy.services.intefaces;
+package com.github.vicenthy.services;
 
 import java.util.List;
 

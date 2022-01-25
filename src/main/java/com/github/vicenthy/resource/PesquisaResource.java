@@ -10,6 +10,8 @@ import javax.inject.Inject;
 import javax.ws.rs.core.MediaType;
 
 import com.github.vicenthy.dto.ArtigoDTO;
+import com.github.vicenthy.services.intefaces.IAgenciaLupa;
+import com.github.vicenthy.services.intefaces.IAosFatos;
 import com.github.vicenthy.services.intefaces.IBoatos;
 import com.github.vicenthy.services.intefaces.IChecamos;
 import com.github.vicenthy.services.intefaces.IEfarsas;
@@ -33,15 +35,43 @@ public class PesquisaResource {
     IChecamos checamos;
     @Inject
     IEfarsas efarsas;
+    @Inject
+    IAosFatos aosFatos;
+    @Inject
+    IAgenciaLupa agenciaLupa;
 
 
     
+
+    
+
+ 
+    @Route(methods = HttpMethod.GET, path = "/agencialupa/:busca", produces = MediaType.APPLICATION_JSON)
+    @Blocking
+    public Multi<List<ArtigoDTO>> agencialupa(RoutingContext rc) {
+        return Multi
+        .createFrom()
+        .item(agenciaLupa.verificarFakeNews(rc.pathParam("busca")));
+        
+    }
+
+
     @Route(methods = HttpMethod.GET, path = "/checamos/:busca", produces = MediaType.APPLICATION_JSON)
     @Blocking
     public Multi<List<ArtigoDTO>> checamos(RoutingContext rc) {
         return Multi
         .createFrom()
         .item(checamos.verificarFakeNews(rc.pathParam("busca")));
+        
+    }
+
+
+    @Route(methods = HttpMethod.GET, path = "/aosfatos/:busca", produces = MediaType.APPLICATION_JSON)
+    @Blocking
+    public Multi<List<ArtigoDTO>> aosfatos(RoutingContext rc) {
+        return Multi
+        .createFrom()
+        .item(aosFatos.verificarFakeNews(rc.pathParam("busca")));
         
     }
 
@@ -59,11 +89,5 @@ public class PesquisaResource {
         .createFrom()
         .item(boatos.verificarFakeNews(rc.pathParam("busca")));   
     }
-
-    //@Path("/boatos/{busca}")
-   
-    //@Path("/efarsas/{busca}")
-   
-
 }
 
