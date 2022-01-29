@@ -15,6 +15,7 @@ import com.github.vicenthy.services.intefaces.IAosFatos;
 import com.github.vicenthy.services.intefaces.IBoatos;
 import com.github.vicenthy.services.intefaces.IChecamos;
 import com.github.vicenthy.services.intefaces.IEfarsas;
+import com.github.vicenthy.services.intefaces.IG1FatoOuFake;
 
 import io.quarkus.vertx.web.Route;
 import io.quarkus.vertx.web.Route.HttpMethod;
@@ -39,9 +40,20 @@ public class PesquisaResource {
     IAosFatos aosFatos;
     @Inject
     IAgenciaLupa agenciaLupa;
+    @Inject
+    IG1FatoOuFake gIg1FatoOuFake;
 
 
-    
+
+    @Route(methods = HttpMethod.GET, path = "/fatooufake/:busca", produces = MediaType.APPLICATION_JSON)
+    @Blocking
+    public Multi<List<ArtigoDTO>> g1FatoOuFake(RoutingContext rc) {
+        return Multi
+        .createFrom()
+        .item(gIg1FatoOuFake.verificarFakeNews(rc.pathParam("busca")));
+        
+    }
+
 
     
 
