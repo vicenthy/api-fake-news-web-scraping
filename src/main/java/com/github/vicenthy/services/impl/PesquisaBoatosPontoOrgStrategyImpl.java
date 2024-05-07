@@ -4,7 +4,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javax.enterprise.context.ApplicationScoped;
 import com.github.vicenthy.dto.ArtigoDTO;
-import com.github.vicenthy.services.intefaces.IBoatos;
+import com.github.vicenthy.dto.FakeNewsCheckProvider;
+import com.github.vicenthy.services.IPesquisaStrategy;
 import io.quarkus.cache.CacheResult;
 
 import org.jsoup.Jsoup;
@@ -12,7 +13,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 @ApplicationScoped
-public class PesquisaBoatosPontoOrg implements IBoatos{
+public class PesquisaBoatosPontoOrgStrategyImpl implements IPesquisaStrategy{
 
 
         @Override
@@ -38,4 +39,10 @@ public class PesquisaBoatosPontoOrg implements IBoatos{
             }
         }
 
+
+
+@Override
+public FakeNewsCheckProvider provider() {
+    return FakeNewsCheckProvider.BOATOS;
+}
 }

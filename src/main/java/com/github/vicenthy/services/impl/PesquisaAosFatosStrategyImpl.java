@@ -6,7 +6,8 @@ import java.util.stream.Collectors;
 import javax.enterprise.context.ApplicationScoped;
 
 import com.github.vicenthy.dto.ArtigoDTO;
-import com.github.vicenthy.services.intefaces.IAosFatos;
+import com.github.vicenthy.dto.FakeNewsCheckProvider;
+import com.github.vicenthy.services.IPesquisaStrategy;
 import io.quarkus.cache.CacheResult;
 
 import org.jsoup.Jsoup;
@@ -14,7 +15,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 @ApplicationScoped
-public class PesquisaAosFatos implements IAosFatos{
+public class PesquisaAosFatosStrategyImpl implements IPesquisaStrategy{
 
 
     @Override
@@ -40,5 +41,11 @@ public class PesquisaAosFatos implements IAosFatos{
             return List.of();
         }
     }
+ 
     
+
+@Override
+public FakeNewsCheckProvider provider() {
+    return FakeNewsCheckProvider.AOSFATOS;
+}
 }

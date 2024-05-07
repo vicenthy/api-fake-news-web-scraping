@@ -10,8 +10,8 @@ import io.quarkus.cache.CacheResult;
 
 
 import com.github.vicenthy.dto.ArtigoDTO;
-import com.github.vicenthy.services.intefaces.IAgenciaLupa;
-import com.github.vicenthy.services.intefaces.IG1FatoOuFake;
+import com.github.vicenthy.dto.FakeNewsCheckProvider;
+import com.github.vicenthy.services.IPesquisaStrategy;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -19,10 +19,10 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 @ApplicationScoped
-public class G1FatoOuFake implements IG1FatoOuFake{
+public class G1FatoOuFakeStrategyImpl implements IPesquisaStrategy{
 
 
-    @Override
+   @Override
    @CacheResult(cacheName = "pesquisa-g1-fato-ou-fake") 
     public List<ArtigoDTO> verificarFakeNews(String parametro){
         try {
@@ -51,5 +51,10 @@ public class G1FatoOuFake implements IG1FatoOuFake{
             return List.of();
         }
     }
+
+@Override
+public FakeNewsCheckProvider provider() {
+    return FakeNewsCheckProvider.FATOOUFAKE;
+}
     
 }

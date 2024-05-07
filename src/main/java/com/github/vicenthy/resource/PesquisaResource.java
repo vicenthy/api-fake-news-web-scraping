@@ -5,18 +5,12 @@ package com.github.vicenthy.resource;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.ws.rs.core.MediaType;
 
 import com.github.vicenthy.dto.ArtigoDTO;
-import com.github.vicenthy.services.intefaces.IAgenciaLupa;
-import com.github.vicenthy.services.intefaces.IAosFatos;
-import com.github.vicenthy.services.intefaces.IBoatos;
-import com.github.vicenthy.services.intefaces.IChecamos;
-import com.github.vicenthy.services.intefaces.IEfarsas;
-import com.github.vicenthy.services.intefaces.IG1FatoOuFake;
-
+import com.github.vicenthy.dto.FakeNewsCheckProvider;
+import com.github.vicenthy.services.PesquisaService;
 import io.quarkus.vertx.web.Route;
 import io.quarkus.vertx.web.Route.HttpMethod;
 import io.smallrye.common.annotation.Blocking;
@@ -31,17 +25,8 @@ public class PesquisaResource {
 
 
     @Inject
-    IBoatos boatos;
-    @Inject
-    IChecamos checamos;
-    @Inject
-    IEfarsas efarsas;
-    @Inject
-    IAosFatos aosFatos;
-    @Inject
-    IAgenciaLupa agenciaLupa;
-    @Inject
-    IG1FatoOuFake gIg1FatoOuFake;
+    PesquisaService pesquisa;
+
 
 
 
@@ -50,7 +35,7 @@ public class PesquisaResource {
     public Multi<List<ArtigoDTO>> g1FatoOuFake(RoutingContext rc) {
         return Multi
         .createFrom()
-        .item(gIg1FatoOuFake.verificarFakeNews(rc.pathParam("busca")));
+        .item(pesquisa.search(rc.pathParam("busca"), FakeNewsCheckProvider.FATOOUFAKE));
         
     }
 
@@ -63,8 +48,8 @@ public class PesquisaResource {
     public Multi<List<ArtigoDTO>> agencialupa(RoutingContext rc) {
         return Multi
         .createFrom()
-        .item(agenciaLupa.verificarFakeNews(rc.pathParam("busca")));
-        
+        .item(pesquisa.search(rc.pathParam("busca"), FakeNewsCheckProvider.AGENCIALUPA));
+          
     }
 
 
@@ -73,8 +58,8 @@ public class PesquisaResource {
     public Multi<List<ArtigoDTO>> checamos(RoutingContext rc) {
         return Multi
         .createFrom()
-        .item(checamos.verificarFakeNews(rc.pathParam("busca")));
-        
+        .item(pesquisa.search(rc.pathParam("busca"),FakeNewsCheckProvider.CHECAMOS));
+         
     }
 
 
@@ -83,23 +68,25 @@ public class PesquisaResource {
     public Multi<List<ArtigoDTO>> aosfatos(RoutingContext rc) {
         return Multi
         .createFrom()
-        .item(aosFatos.verificarFakeNews(rc.pathParam("busca")));
-        
+        .item(pesquisa.search(rc.pathParam("busca"), FakeNewsCheckProvider.AOSFATOS));
+       
     }
 
     @Route(methods = HttpMethod.GET, path = "/efarsas/:busca", produces = MediaType.APPLICATION_JSON)
     @Blocking
     public Multi<List<ArtigoDTO>> efarsas(RoutingContext rc) {
-        return efarsas.verificarFakeNewsAsync(rc.pathParam("busca"));  
+        return Multi
+        .createFrom()
+        .item(pesquisa.search(rc.pathParam("busca"), FakeNewsCheckProvider.EFARSAS));
+  
     }
-
 
     @Route(methods = HttpMethod.GET, path = "/boatos/:busca", produces = MediaType.APPLICATION_JSON)
     @Blocking
     public Multi<List<ArtigoDTO>> boatos(RoutingContext rc) {
         return Multi
         .createFrom()
-        .item(boatos.verificarFakeNews(rc.pathParam("busca")));   
-    }
+        .item(pesquisa.search(rc.pathParam("busca"), FakeNewsCheckProvider.BOATOS));
+     }
 }
 

@@ -8,7 +8,8 @@ import io.quarkus.cache.CacheResult;
 
 
 import com.github.vicenthy.dto.ArtigoDTO;
-import com.github.vicenthy.services.intefaces.IAgenciaLupa;
+import com.github.vicenthy.dto.FakeNewsCheckProvider;
+import com.github.vicenthy.services.IPesquisaStrategy;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -16,7 +17,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 @ApplicationScoped
-public class PesquisaAgenciaLupa implements IAgenciaLupa{
+public class PesquisaAgenciaLupaStrategyImpl implements IPesquisaStrategy{
 
 
     @Override
@@ -43,4 +44,10 @@ public class PesquisaAgenciaLupa implements IAgenciaLupa{
         }
     }
     
+
+
+@Override
+public FakeNewsCheckProvider provider() {
+    return FakeNewsCheckProvider.AGENCIALUPA;
+}
 }

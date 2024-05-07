@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javax.enterprise.context.ApplicationScoped;
 import com.github.vicenthy.dto.ArtigoDTO;
-import com.github.vicenthy.services.intefaces.IEfarsas;
+import com.github.vicenthy.dto.FakeNewsCheckProvider;
+import com.github.vicenthy.services.IPesquisaStrategy;
 import io.quarkus.cache.CacheResult;
 
 import org.jsoup.Jsoup;
@@ -14,7 +15,7 @@ import org.jsoup.nodes.Document;
 import io.smallrye.mutiny.Multi;
 
 @ApplicationScoped
-public class PesquisaEfarsas implements IEfarsas{
+public class PesquisaEfarsasStrategyImpl implements IPesquisaStrategy{
 
     @Override
     @CacheResult(cacheName = "e-farsas") 
@@ -53,9 +54,8 @@ public class PesquisaEfarsas implements IEfarsas{
         }).collect(Collectors.toList());
     }
 
-    @Override
-    public Multi<List<ArtigoDTO>> verificarFakeNewsAsync(String parametro) {
-        return Multi.createFrom().items(verificarFakeNews(parametro));
-    }
-
+@Override
+public FakeNewsCheckProvider provider() {
+    return FakeNewsCheckProvider.EFARSAS;
+}
 }
