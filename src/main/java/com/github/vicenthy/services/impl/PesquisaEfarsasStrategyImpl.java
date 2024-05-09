@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import javax.enterprise.context.ApplicationScoped;
 import com.github.vicenthy.dto.ArtigoDTO;
 import com.github.vicenthy.dto.FakeNewsCheckProvider;
-import com.github.vicenthy.services.IPesquisaStrategy;
+import com.github.vicenthy.services.PesquisaStrategy;
 import io.quarkus.cache.CacheResult;
 
 import org.jsoup.Jsoup;
@@ -15,7 +15,7 @@ import org.jsoup.nodes.Document;
 import io.smallrye.mutiny.Multi;
 
 @ApplicationScoped
-public class PesquisaEfarsasStrategyImpl implements IPesquisaStrategy{
+public class PesquisaEfarsasStrategyImpl implements PesquisaStrategy{
 
     @Override
     @CacheResult(cacheName = "e-farsas") 

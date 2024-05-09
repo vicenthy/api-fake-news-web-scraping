@@ -11,7 +11,7 @@ import io.quarkus.cache.CacheResult;
 
 import com.github.vicenthy.dto.ArtigoDTO;
 import com.github.vicenthy.dto.FakeNewsCheckProvider;
-import com.github.vicenthy.services.IPesquisaStrategy;
+import com.github.vicenthy.services.PesquisaStrategy;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -19,7 +19,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 @ApplicationScoped
-public class G1FatoOuFakeStrategyImpl implements IPesquisaStrategy{
+public class G1FatoOuFakeStrategyImpl implements PesquisaStrategy{
 
 
    @Override

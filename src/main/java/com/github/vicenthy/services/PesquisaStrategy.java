@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.github.vicenthy.dto.ArtigoDTO;
 import com.github.vicenthy.dto.FakeNewsCheckProvider;
-public interface IPesquisaStrategy {
+public interface PesquisaStrategy{
     List<ArtigoDTO> verificarFakeNews(String parametro);
     FakeNewsCheckProvider provider();
 
